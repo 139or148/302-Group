@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McDonald</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="mcdonald_logo.png"/>
 
+    <style>
+        .section{
+            margin-top: 130px;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top d-flex">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+              <img src="mcdonald_logo.png" width="75" height="75">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+            
+        
+          <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="input_data.html">Add Order</a>
+                </li>
+            </ul>            
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">  
+                <li class="nav-item">
+                    <a class="nav-link" href="customer_orders.html">Orders</a>
+                </li>
+            </ul>            
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.html">Dashboard</a>
+                </li>
+            </ul>            
+          </div>
+        </div>
+      </nav>
+      
+
+      <div class="container section">
+        <h2 style="text-align:center;">Input Order Details</h2>
+        <br><br>
+      </div>
+<form onsubmit="add_order()">        
+<input type="text" style="display: block; margin-left: auto; margin-right: auto;" placeholder="customer name" id="cust_name" required><br>
+<input type="number" style="display: block; margin-left: auto; margin-right: auto;" placeholder="phone number" id="phone" required><br>
+<input type="text" style="display: block; margin-left: auto; margin-right: auto;" placeholder="address" id="address" required><br>
+<input type="text" style="display: block; margin-left: auto; margin-right: auto;" placeholder="ordered Food" id="food" required><br>
+<input type="text" style="display: block; margin-left: auto; margin-right: auto;" placeholder="payment method" id="pay_m" required><br>
+<input type="number" style="display: block; margin-left: auto; margin-right: auto;" placeholder="total price" id="total" required><br>
+<input type="submit" style="display: block; margin-left: auto; margin-right: auto;" value="Enter"> 
+</form>
+
+<script>
+if (localStorage.getItem("cust_name") == null) 
+  {var cust_name = [];
+   var phone = []; 
+   var address = []; 
+   var food = [];
+   var pay_m = []
+   var total = []
+   var pending_no = []
+   var total_order = 0
+  }
+else 
+  {var cust_name = localStorage.getItem("cust_name").split(",");
+   var phone = localStorage.getItem("phone").split(",");
+   var address = localStorage.getItem("address").split(",");
+   var food = localStorage.getItem("food").split(",");
+   var pay_m = localStorage.getItem("pay_m").split(",");
+   var total = localStorage.getItem("total").split(",");
+   var total_order = localStorage.getItem("total_order")
+  };
+
+  function add_order(){ 
+    if (cust_name.length >= 1 && cust_name != "")
+    {alert("There is still a pending order that have yet to be confirmed")}
+    else
+    {
+    cust_name.push(document.getElementById("cust_name").value)
+    phone.push(document.getElementById("phone").value)
+    address.push(document.getElementById("address").value)
+    food.push(document.getElementById("food").value)
+    pay_m.push(document.getElementById("pay_m").value)
+    total.push(document.getElementById("total").value)
+    total_order = Number(total_order) + 1 //Add total order number
+    localStorage.setItem("cust_name", cust_name);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("address", address);
+    localStorage.setItem("pay_m", pay_m);
+    localStorage.setItem("food", food);
+    localStorage.setItem("total", total);
+    localStorage.setItem("total_order", total_order);
+    alert("Data have been sent!");
+    location.reload()
+    }
+}
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>

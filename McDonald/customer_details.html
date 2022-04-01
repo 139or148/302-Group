@@ -1,0 +1,81 @@
+<!-- Customer details -->
+<!DOCTYPE html>
+<html>
+<body>
+
+<style>.order_no {font-size: 50px; background-color: lightblue; margin: 20px; width: 700px} </style>
+<style>.map_title {color: red; font-size: 35px; margin: 35px} </style>
+<style>.map_outer {position:relative; text-align:right; height:400px; width:500px} </style>
+<style>.gmap_canvas {overflow:hidden; background:none!important; height:400px; width:500px; border: solid 4px; margin-left: 35px} </style>
+<style> pre {font-size: 20px} </style>
+<style> span {color: red; font-weight: bold} </style>
+<style> button {width: 120px; margin-left :20px}</style>
+
+
+
+<!-- Order Number -->
+<pre class="order_no"> ORDER NO. #<span id="order_no" style="color: black"></span></pre>
+
+<!-- Customer detail structure -->
+<b class="map_title">Delivery Location</b>
+
+<div class="map_outer">
+  <div class="gmap_canvas">
+    <!-- frame of delivery location using google map -->
+    <iframe id="gmap_frame" width="600" height="500" id="gmap_canvas" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"/>
+    </iframe>
+  <br>
+  </div>
+</div>
+
+<br>
+<br>
+<hr>
+
+<pre>      Customer Name:  <span id ="name"></span></pre>
+<pre>       Phone Number:  <span id ="phone"></span></pre>
+<pre>            Address:  <span id ="address"></span></pre>
+<pre>     Payment Method:  <span id ="p_method"></span></pre>
+<pre>       Total Amount:  <span id ="total"></span></pre>
+
+<br>
+
+<!-- Go back button-->
+
+<button onclick="history.back()"><h2 style="font-weight: normal">⮜ Go Back</h2></button>
+
+
+<!-- Get customer detail data and display in above structure-->
+<script>
+function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+order_no = getParameterByName('order_no')
+document.getElementById("order_no").innerHTML = order_no
+
+delivery_location = getParameterByName('address')
+document.getElementById("gmap_frame").src = "http://maps.google.com/maps?hl=en&q=" + delivery_location + "&ie=UTF8&output=embed"
+
+name     = getParameterByName('name')
+phone    = getParameterByName('phone')
+address  = getParameterByName('address')
+pay_m = getParameterByName('pay_m')
+total    = getParameterByName('price')
+document.getElementById("name").innerHTML     = name
+document.getElementById("phone").innerHTML    = phone 
+document.getElementById("address").innerHTML  = address 
+document.getElementById("p_method").innerHTML = pay_m
+document.getElementById("total").innerHTML    = "$<u>" + total + "</u>"
+</script>
+
+
+</body>
+</html>
+
